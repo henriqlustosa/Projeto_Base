@@ -1,0 +1,99 @@
+@model IEnumerable<Exame>
+
+@{
+    ViewData["Title"] = "Exames";
+    var termo = ViewData["termo"];
+}
+
+<div class="card">
+    <div class="card-header d-flex">
+        <h4 class="flex-grow-1">Leilões</h4>
+        <a class="btn btn-outline-primary" asp-controller="exame" asp-action="Insert" title="Inclusão">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Novo
+        </a>
+    </div>
+    <div class="card-body">
+        <form class="form-inline mb-3" asp-controller="exame" asp-action="Pesquisa" method="get">
+            <input name="termo" class="form-control flex-grow-1"
+                    value="@termo"
+                    placeholder="Pesquisar por título, categoria ou descrição..." />
+            <button class="btn btn-outline-secondary ml-2">
+                <i class="fa fa-search"></i>
+                <span class="d-none d-md-inline">Pesquisar</span>
+            </button>
+        </form>
+        <div class="row">
+            <div class="col-12">
+                <table class="col-12 table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Título</th>
+                            <th>Situação</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var exame in Model)
+                        {
+                            <tr class="row-exame-@exame.Id">
+                                <td>@exame.Id</td>
+                                <td>@exame.Usuario</td>
+                                <td>
+                                    @switch (exame.Clinica)
+                                    {
+                                        case Clinica.AMA:
+                                            <span>Rascunho</span>
+                                            break;
+                                        case Clinica.GINECOLOGIA:
+                                            <span>Pregão iniciado em @exame.Dt_resultado.Value.ToString("dd/MM/yyyy hh:mm")</span>
+                                            break;
+                                        case Clinica.NEUROCIRURGIA:
+                                            <span>Finalizado em @exame.Dt_Cadastro.Value.ToString("dd/MM/yyyy hh:mm")</span>
+                                            break;
+                                        default:
+                                            <span>@exame.Clinica</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>@exame.Contato</td>
+                                <td>
+                                    @if (exame.Clinica == Clinica.AMA)
+                                    {
+                                        <a class="btn btn-light" asp-controller="exame" asp-action="Edit" asp-route-id="@exame.Id" title="Edição">
+                                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                        </a>
+                                        <form asp-action="Inicia">
+                                            <input type="hidden" name="id" value="@exame.Id" />
+                                            <button class="btn btn-light" title="Iniciar Pregão">
+                                                <i class="fas fa-play-circle"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    @if (exame.Clinica != Clinica.GINECOLOGIA)
+                                    {
+                                        <a class="btn btn-light btnRemoveexame" data-id="@exame.Id" data-titulo="@exame.Contato" title="Exclusão">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    }
+                                    @if (exame.Clinica == Clinica.GINECOLOGIA)
+                                    {
+                                        <form asp-action="Finaliza">
+                                            <input type="hidden" name="id" value="@exame.Id" />
+                                            <button class="btn btn-light" title="Finalizar Exame">
+                                                <i class="fas fa-stop-circle"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

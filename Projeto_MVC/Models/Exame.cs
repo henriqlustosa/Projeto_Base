@@ -21,5 +21,7 @@ namespace Projeto_MVC.Models
         [DataType(DataType.DateTime, ErrorMessage = "Data inválida")]
         public DateTime? Dt_Ultima_Atualizacao { get; set; }
         public String  Usuario { get; set; }
+
+        public string PosterUrl => $"images/poster-{Id}.jpg";
     }
 }

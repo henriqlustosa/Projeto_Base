@@ -1,0 +1,25 @@
+﻿@model Microrganismo
+
+@{ Layout = "_AreaPublica";
+    ViewData["Title"] = "Microrganismo"; }
+
+<h1>@Model.Descricao</h1>
+<span class="image main img-categoria">
+    <img src="~/@Model.Imagem" alt="@Model.Descricao" />
+</span>
+<h3>Exames em andamento</h3>
+<section class="tiles">
+    @foreach (var exame in Model.Exames.Where(l => l.Clinica == Clinica.AMA))
+    {
+<article class="leilao">
+    <span class="image">
+        <img src="~/@exame.PosterUrl" alt="@exame.Usuario" />
+
+    
+    </span>
+    <h4>@exame.Usuario</h4>
+    <div class="content">
+        <p>@exame.Contato.Substring(0, 3)</p>
+    </div>
+</article>}
+</section>

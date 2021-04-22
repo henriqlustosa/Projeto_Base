@@ -37,7 +37,21 @@ namespace Projeto_MVC.Controllers
                 });
             return View(microrganismos);
         }
+        [Route("[controller]/Microrganismo/{microrganismo}")]
+        public IActionResult Microrganismo(int microrganismo)
+        {
+            var categ = _context.Microrganismos
+                .Include(c => c.Exames)
+                .First(c => c.Id == microrganismo);
+            return View(categ);
+        }
 
+        [Route("[controller]/StatusCode/{statusCode}")]
+        public IActionResult StatusCodeError(int statusCode)
+        {
+            if (statusCode == 404) return View("404");
+            return View(statusCode);
+        }
         public IActionResult Privacy()
         {
             return View();
