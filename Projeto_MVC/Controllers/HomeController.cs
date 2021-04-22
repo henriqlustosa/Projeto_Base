@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Projeto_MVC.Models;
+using Projeto_MVC.Dados;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 
 namespace Projeto_MVC.Controllers
 {
@@ -13,14 +16,26 @@ namespace Projeto_MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        AppDbContext _context;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _context = new AppDbContext();
         }
 
         public IActionResult Index()
-        {
-            return View();
+        { 
+        var microrganismos = _context.Microrganismos
+                .Include(c => c.Exames)
+                .Select(c => new MicrorgansimoComInfoExame
+                {
+                    Id = c.Id,
+                    Descricao = c.Descricao,
+                    Imagem = c.Imagem,
+                    PorAno = c.Exames.Where(l => l.Clinica == Clinica.AMA).Count(),
+                 
+                });
+            return View(microrganismos);
         }
 
         public IActionResult Privacy()

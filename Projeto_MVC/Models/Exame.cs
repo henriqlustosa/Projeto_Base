@@ -4,14 +4,15 @@ namespace Projeto_MVC.Models
 {
     public class Exame
     {
-        public int cod_exm { get; set; }
+        public int Id { get; set; }
         [Display(Name = "Resultado do Exame")]
         [DataType(DataType.DateTime, ErrorMessage = "Data inválida")]
         public DateTime? Dt_resultado { get; set; }
         public Microrganismo Microrganismo { get; set; }
-        public int Material { get; set; }
-        public int Rh { get; set; }
+        //public int Material { get; set; }
+        //public int Rh { get; set; }
         public int IdMicrorganismo { get; set; }
+        public String Contato { get; set; }
         public Clinica Clinica { get; set; }
         [Display(Name = "Cadastro do Exame")]
         [DataType(DataType.DateTime, ErrorMessage = "Data inválida")]

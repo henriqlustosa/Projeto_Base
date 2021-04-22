@@ -11,7 +11,7 @@ namespace Projeto_MVC.Dados
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SistemaIsolamentoDB;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SistemaIsolamentoDB_Teste_Teste_Teste;Trusted_Connection=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

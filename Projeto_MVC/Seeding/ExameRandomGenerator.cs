@@ -41,28 +41,29 @@ namespace Projeto_MVC.Seeding
             get
             {
                 var exame = new Exame();
-                // exame.Id = random.Next(); será definido no loop de geração
+                //exame.Id = random.Next();// será definido no loop de geração
                 exame.Microrganismo = MicrorganismoQualquer();
-                exame.Titulo = $"{leilao.Categoria.Descricao} - Lote nº {random.Next(500)}";
+              
+                exame.Contato = "Lorem ipsum dolor sit amet.";
+                exame.Clinica = this.SituacaoAleatoria();
+                var dataPosterior = DateTime.Now.AddDays(random.Next(10));
                 exame.Dt_resultado = this.DataAleatoria();
                 exame.Dt_Cadastro = this.DataAleatoria();
-                exame.Contato = $"{leilao.Titulo}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut consequat semper viverra nam libero justo laoreet. Ut placerat orci nulla pellentesque dignissim enim sit amet. Cras semper auctor neque vitae. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Penatibus et magnis dis parturient montes nascetur ridiculus. Bibendum enim facilisis gravida neque convallis. At risus viverra adipiscing at in tellus integer feugiat scelerisque. Turpis egestas pretium aenean pharetra magna ac. Suspendisse ultrices gravida dictum fusce ut. Mauris vitae ultricies leo integer. Senectus et netus et malesuada fames ac turpis egestas. Libero volutpat sed cras ornare. Tristique senectus et netus et malesuada fames ac.";
-                exame.Clinica = this.SituacaoAleatoria();
-             
-                var dataAnterior = DateTime.Now.AddDays(-random.Next(10));
-                exame.Dt_Ultima_Atualizacao = exame.Dt_resultado.Value.CompareTo(dataAnterior) > 0 ? dataAnterior : exame.Dt_Ultima_Atualizacao.Value;
+                exame.Dt_Ultima_Atualizacao = exame.Dt_resultado.Value.CompareTo(dataPosterior) < 0 ? dataPosterior : exame.Dt_Ultima_Atualizacao.Value;
               
                 exame.IdMicrorganismo = exame.Microrganismo.Id;
+
+                exame.Usuario = "Usuario";
                 return exame;
             }
         }
 
         private Clinica SituacaoAleatoria()
         {
-            int index = random.Next(0, 140);
+            int index = random.Next(0, 8);
             var values = Enum.GetValues(typeof(Clinica));
             return (Clinica)values.GetValue(index);
         }
     }
 }
-}
+
