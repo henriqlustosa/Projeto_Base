@@ -24,7 +24,7 @@ namespace Projeto_MVC.Dados
 
         public IEnumerable<Exame> BuscarTodosExames() => _context.Exames.Include(l => l.Microrganismo);
 
-        public IEnumerable<Microrganismo> BuscarTodasMicrorganismos() => _context.Microrganismos;
+        public IEnumerable<Microrganismo> BuscarTodosMicrorganismos() => _context.Microrganismos;
 
         public void IncluirExame(Exame obj)
         {
