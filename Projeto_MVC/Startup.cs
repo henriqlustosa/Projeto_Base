@@ -41,7 +41,7 @@ namespace Projeto_MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseStatusCodePagesWithRedirects("/Home/StatusCode/{0}");
             app.UseRouting();
 
             app.UseAuthorization();

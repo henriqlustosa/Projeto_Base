@@ -9,6 +9,9 @@ namespace Projeto_MVC.Seeding
     public class ExameRandomGenerator
     {
         Random random;
+        private static Random random_2 = new Random((int)DateTime.Now.Ticks);
+        long maximo = 1120991L;
+        long minimo = 4575881L;
         Microrganismo[] microrganismo = new Microrganismo[6]
         {
             new Microrganismo() { Descricao = "A. BAUMANNII - MDR", Imagem = "images/01.jpeg" },
@@ -35,7 +38,12 @@ namespace Projeto_MVC.Seeding
             int diasAleatorios = random.Next(1, 100);
             return DateTime.Now.AddDays(-diasAleatorios);
         }
+      
 
+        public long LongBetween(long maxValue, long minValue)
+        {
+            return (long)Math.Round(random_2.NextDouble() * (maxValue - minValue - 1)) + minValue;
+        }
         public Exame NovoExame
         {
             get
@@ -50,7 +58,9 @@ namespace Projeto_MVC.Seeding
                 exame.Dt_resultado = this.DataAleatoria();
                 exame.Dt_Cadastro = this.DataAleatoria();
                 exame.Dt_Ultima_Atualizacao = exame.Dt_resultado.Value.CompareTo(dataPosterior) < 0 ? dataPosterior : exame.Dt_Ultima_Atualizacao.Value;
-              
+               
+                exame.Rh = LongBetween(maximo, minimo);
+                exame.Material =
                 exame.IdMicrorganismo = exame.Microrganismo.Id;
 
                 exame.Usuario = "Usuario";

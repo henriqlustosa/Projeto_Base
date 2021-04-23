@@ -24,7 +24,18 @@ namespace Projeto_MVC.Controllers
             var exames = _dao.BuscarTodosExames();
             return View(exames);
         }
+        public IActionResult Pesquisa(string termo)
+        {
+            ViewData["termo"] = termo;
+            var exames = _dao.BuscarTodosExames()
+                .Where(l => string.IsNullOrWhiteSpace(termo) ||
+                    l.Usuario.ToUpper().Contains(termo.ToUpper()) ||
+                    l.Contato.ToUpper().Contains(termo.ToUpper()) ||
+                    l.Microrganismo.Descricao.ToUpper().Contains(termo.ToUpper())
+                );
+            return View("Index", exames);
 
 
+        }
     }
 }

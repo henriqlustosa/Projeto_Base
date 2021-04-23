@@ -22,7 +22,7 @@
             <span class="invalid-feedback" asp-validation-for="Usuario"></span>
         </div>
         <div class="form-group col-4">
-            <label asp-for="IdMicrorganismo">Categoria:</label>
+            <label asp-for="IdMicrorganismo">Microrganismo:</label>
             <select class="form-control" asp-for="IdMicrorganismo">
                 @foreach(var categoria in categorias.OrderBy(c => c.Descricao))
                 {
