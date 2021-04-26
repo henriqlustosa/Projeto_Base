@@ -22,6 +22,17 @@ namespace Projeto_MVC.Seeding
             new Microrganismo() { Descricao = "E. FAECIUM VRE", Imagem = "images/06.jpeg" },
         };
 
+
+        Material[] material = new Material[6]
+      {
+            new Material() { Descricao = "COLEÇÃO INTRAPERITONIAL", Imagem = "images/Intraperitoneal.jpeg" },
+            new Material() { Descricao = "CATETER", Imagem = "images/Cateter.webp" },
+            new Material() { Descricao = "CATETER DUPLO J BILATERAL", Imagem = "images/CateterDuploJ.jpg" },
+            new Material() { Descricao = "CATETER VENOSO CENTRAL", Imagem = "images/CateterVenoso.png" },
+            new Material() { Descricao = "COLEÇÃO DE INCISÃO CIRÚRGICA", Imagem = "images/IncisaoCirugica.jpeg" },
+            new Material() { Descricao = "ASPIRADOR  DE HEMATOMA MAMA", Imagem = "images/HematomaMama.jpeg" },
+      };
+
         public ExameRandomGenerator(Random random)
         {
             this.random = random;
@@ -31,6 +42,12 @@ namespace Projeto_MVC.Seeding
         {
             var indiceAleatorio = random.Next(0, 5);
             return microrganismo[indiceAleatorio];
+        }
+
+        private Material MaterialQualquer()
+        {
+            var indiceAleatorio = random.Next(0, 5);
+            return material[indiceAleatorio];
         }
 
         private DateTime DataAleatoria()
@@ -51,7 +68,9 @@ namespace Projeto_MVC.Seeding
                 var exame = new Exame();
                 //exame.Id = random.Next();// será definido no loop de geração
                 exame.Microrganismo = MicrorganismoQualquer();
-              
+
+                exame.Material = MaterialQualquer();
+
                 exame.Contato = "Lorem ipsum dolor sit amet.";
                 exame.Clinica = this.SituacaoAleatoria();
                 var dataPosterior = DateTime.Now.AddDays(random.Next(10));
@@ -60,7 +79,7 @@ namespace Projeto_MVC.Seeding
                 exame.Dt_Ultima_Atualizacao = exame.Dt_resultado.Value.CompareTo(dataPosterior) < 0 ? dataPosterior : exame.Dt_Ultima_Atualizacao.Value;
                
                 exame.Rh = LongBetween(maximo, minimo);
-                exame.Material =
+                exame.IdMaterial = exame.Material.Id;
                 exame.IdMicrorganismo = exame.Microrganismo.Id;
 
                 exame.Usuario = "Usuario";

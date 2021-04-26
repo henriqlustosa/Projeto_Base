@@ -9,9 +9,11 @@ namespace Projeto_MVC.Models
         [DataType(DataType.DateTime, ErrorMessage = "Data inválida")]
         public DateTime? Dt_resultado { get; set; }
         public Microrganismo Microrganismo { get; set; }
-        public int Material { get; set; }
+        public Material Material { get; set; }
         public long Rh { get; set; }
         public int IdMicrorganismo { get; set; }
+
+        public int IdMaterial { get; set; }
         public String Contato { get; set; }
         public Clinica Clinica { get; set; }
         [Display(Name = "Cadastro do Exame")]
